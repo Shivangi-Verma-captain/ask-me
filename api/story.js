@@ -11,13 +11,11 @@ export default async function handler(req, res) {
     const buddy = String(body.buddy || "").trim().slice(0, 80);
     const place = String(body.place || "").trim().slice(0, 80);
     const treasure = String(body.treasure || "").trim().slice(0, 80);
-    const mood = String(body.mood || "savage").trim().slice(0, 40);
+    const mood = String(body.mood || "dark").trim().slice(0, 40);
     const twist = String(body.twist || "").trim().slice(0, 80);
     const language = String(body.language || "English").trim().slice(0, 40);
 
-    if (!hero && !place && !treasure && !twist && !buddy) {
-      return res.status(400).json({ error: "Drop at least one word first." });
-    }
+    // Words are optional — vibe alone is a valid request.
 
     const apiKey = process.env.SARVAM_API_KEY;
     if (!apiKey || apiKey === "paste-your-key-here") {
@@ -30,13 +28,17 @@ export default async function handler(req, res) {
       buddy && `Partner in crime: ${buddy}`,
       place && `Location: ${place}`,
       treasure && `Cursed object: ${treasure}`,
-      `Vibe: ${mood}`,
       twist && `Twist word: ${twist}`,
     ].filter(Boolean).join("\n");
 
+    const hasSpice = Boolean(words);
+    const spiceLine = hasSpice
+      ? `Work these in naturally:\n${words}`
+      : `No user words given — invent your own savage adult characters, messy location and cursed object that fit the vibe.`;
+
     const prompt = `Write a short dark-comedy story (150-220 words, 3 paragraphs) full of fun, sarcasm and clever double-meaning wordplay.
-Use ALL of these:
-${words}
+Vibe: ${mood}
+${spiceLine}
 
 Rules:
 - Language: ${language}. If Hinglish, mix Hindi + English like a late-night standup set.

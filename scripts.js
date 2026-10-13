@@ -8,7 +8,7 @@ const errEl = document.getElementById("story-error");
 const loader = document.getElementById("loader");
 const chipsEl = document.getElementById("chips");
 
-let mood = "savage";
+let mood = "dark";
 document.getElementById("moods").addEventListener("click", (e) => {
   const b = e.target.closest(".pill");
   if (!b) return;
@@ -31,7 +31,6 @@ document.getElementById("surprise").addEventListener("click", () => {
   document.getElementById("place").value = s[2];
   document.getElementById("treasure").value = s[3];
   document.getElementById("twist").value = s[4];
-  bake();
 });
 
 document.querySelectorAll("[data-fill]").forEach((b) =>
@@ -59,11 +58,7 @@ async function bake() {
     language: document.getElementById("language").value,
   };
 
-  if (!payload.hero && !payload.buddy && !payload.place && !payload.treasure && !payload.twist) {
-    showError("Drop at least one word first. Don't be shy.");
-    return;
-  }
-
+  // No keywords needed — vibe alone is enough.
   box.classList.remove("hidden");
   box.scrollIntoView({ behavior: "smooth", block: "center" });
   setLoading(true);
@@ -132,11 +127,15 @@ function typewriter(full) {
 }
 
 function localStory(p) {
-  const hero = p.hero || "broke landlord";
-  const buddy = p.buddy || "ex with attitude";
+  const m = (p.mood || "dark").toLowerCase();
+  const hero = p.hero || (m === "flirty" ? "late-night RJ" : m === "dark" ? "insomniac bachelor" : "broke landlord");
+  const buddy = p.buddy || (m === "flirty" ? "mysterious caller" : "ex with attitude");
   const place = p.place || "2BHK in Andheri";
   const treasure = p.treasure || "neighbour's pressure cooker";
-  const twist = p.twist || "rent";
+  const twist = p.twist || m;
+  if (m === "flirty" || m === "filthy" || m === "dirty") {
+    return `Everyone wants it but nobody admits it.\n\n${hero} told ${buddy} to meet at ${place} — "just to talk." Sure. The ${treasure} was whistling in the background like it knew exactly what kind of "talk" this was going to be.\n\nYou know that tension when the ${twist} is hanging in the air and both people are pretending to be decent? Yeah, that. One wrong joke and it's either a love story or a police complaint.\n\nMoral: if the vibe is ${m}, don't play innocent. Play smart.`;
+  }
   return `The ${twist} always comes twice.\n\n${hero} swore this month would be different. Then ${buddy} showed up at ${place} with the ${treasure} and said, "I heard your ${twist} is too big to handle alone." Everyone laughed. ${hero} did not.\n\nYou can smell cheap deo and bad decisions. You hear the cooker whistle like it's judging you. Life lesson number 404: the longer you ignore your ${twist}, the harder it gets. In the end ${hero} paid double — once in cash, once in dignity.\n\nMoral: size of the ${twist} doesn't matter. Timing does.`;
 }
 

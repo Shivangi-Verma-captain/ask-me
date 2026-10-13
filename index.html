@@ -17,48 +17,26 @@
   <header>
     <div class="kicker"><span class="dot"></span> SARVAM-POWERED / 18-ISH VIBE / ROAST INCLUDED</div>
     <a href="index.html" class="header-text">DOUBLE<br>TROUBLE<span class="accent">.</span></a>
-    <p class="tagline">Put dirty-minded words in. Get a darker, funnier story out.</p>
+    <p class="tagline">No words needed. Just pick DARK / FILTHY / FLIRTY and get a story.</p>
   </header>
 
   <main>
     <div class="card">
-      <h2>Build your bad decision.</h2>
-      <p class="sub">Fill one box or all five. We’ll make it savage.</p>
+      <h2>Pick your poison. No typing needed.</h2>
+      <p class="sub">Just tap a vibe + DROP. Words below are optional spice.</p>
 
       <form id="story-form">
-        <div class="grid">
-          <label class="field">
-            <span class="label">01 / Main character</span>
-            <input id="hero" name="hero" maxlength="80" placeholder="e.g. broke landlord" autocomplete="off">
-          </label>
-          <label class="field">
-            <span class="label">02 / Partner in crime</span>
-            <input id="buddy" name="buddy" maxlength="80" placeholder="e.g. ex with attitude" autocomplete="off">
-          </label>
-          <label class="field">
-            <span class="label">03 / Location</span>
-            <input id="place" name="place" maxlength="80" placeholder="e.g. 2BHK in Andheri" autocomplete="off">
-          </label>
-          <label class="field">
-            <span class="label">04 / Cursed object</span>
-            <input id="treasure" name="treasure" maxlength="80" placeholder="e.g. neighbour’s pressure cooker" autocomplete="off">
-          </label>
-        </div>
-
-        <label class="field full">
-          <span class="label">05 / Twist word — make it spicy</span>
-          <input id="twist" name="twist" maxlength="80" placeholder="e.g. rent, stamina, package, late night" autocomplete="off">
-        </label>
-
-        <div class="row">
+        <div class="row" style="margin-top:0">
           <div class="moods">
-            <p class="mini-label">Pick your poison</p>
+            <p class="mini-label">01 / Pick your poison — works alone</p>
             <div class="pills" id="moods">
-              <button type="button" data-mood="savage" class="pill active">SAVAGE</button>
-              <button type="button" data-mood="dark" class="pill">DARK</button>
+              <button type="button" data-mood="dark" class="pill active">DARK</button>
+              <button type="button" data-mood="filthy" class="pill">FILTHY</button>
+              <button type="button" data-mood="dirty" class="pill">DIRTY</button>
+              <button type="button" data-mood="flirty" class="pill">FLIRTY</button>
               <button type="button" data-mood="shameless" class="pill">SHAMELESS</button>
+              <button type="button" data-mood="savage" class="pill">SAVAGE</button>
               <button type="button" data-mood="chaotic" class="pill">CHAOTIC</button>
-              <button type="button" data-mood="filthy-clever" class="pill">FILTHY-CLEVER</button>
             </div>
           </div>
           <label class="lang">
@@ -75,10 +53,38 @@
         </div>
 
         <div class="actions">
-          <button type="button" id="surprise" class="btn ghost">SURPRISE ME</button>
           <button type="submit" id="make" class="btn primary">DROP THE STORY ↓</button>
         </div>
-        <p class="hint" id="hint">try: <button type="button" class="linklike" data-fill="a">landlord</button> + <button type="button" class="linklike" data-fill="b">shaadi ka buffet</button> + <button type="button" class="linklike" data-fill="c">5AM local train</button></p>
+
+        <p class="mini-label" style="margin-top:18px">02 / Optional spice — add words if you want</p>
+        <div class="grid">
+          <label class="field">
+            <span class="label">Main character (optional)</span>
+            <input id="hero" name="hero" maxlength="80" placeholder="e.g. broke landlord" autocomplete="off">
+          </label>
+          <label class="field">
+            <span class="label">Partner in crime (optional)</span>
+            <input id="buddy" name="buddy" maxlength="80" placeholder="e.g. ex with attitude" autocomplete="off">
+          </label>
+          <label class="field">
+            <span class="label">Location (optional)</span>
+            <input id="place" name="place" maxlength="80" placeholder="e.g. 2BHK in Andheri" autocomplete="off">
+          </label>
+          <label class="field">
+            <span class="label">Cursed object (optional)</span>
+            <input id="treasure" name="treasure" maxlength="80" placeholder="e.g. neighbour's pressure cooker" autocomplete="off">
+          </label>
+        </div>
+
+        <label class="field full">
+          <span class="label">Twist word (optional)</span>
+          <input id="twist" name="twist" maxlength="80" placeholder="e.g. rent, stamina, package, late night" autocomplete="off">
+        </label>
+
+        <div class="actions">
+          <button type="button" id="surprise" class="btn ghost">FILL RANDOM SPICE</button>
+        </div>
+        <p class="hint" id="hint">tip: empty boxes work fine. Vibe alone = full story.</p>
       </form>
     </div>
 
