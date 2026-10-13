@@ -1,33 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Ask Me</title>
+  <meta charset="UTF-8">
+  <title>Story Sprinkles ✨ — tiny tales from tiny words</title>
   <link rel="stylesheet" href="style.css">
   <script src="scripts.js" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="favicon.ico">
+  <meta name="description" content="Put words in cute boxes, get a short immersive story powered by Sarvam AI.">
 </head>
 
 <body>
+  <div class="clouds" aria-hidden="true"><span>☁️</span><span>☁️</span><span>☁️</span><span>✨</span><span>⭐</span></div>
 
   <header>
-    <a href="index.html" class="header-text">Ask Me</a>
+    <a href="index.html" class="header-text">🧸 Story Sprinkles</a>
+    <p class="tagline">put in silly words → get a tiny immersive world</p>
   </header>
 
   <main>
+    <div class="card cute-card">
+      <h2>Make a story in 10 seconds ✨</h2>
+      <p class="sub">Fill 1 box or all 5. Our Sarvam-powered story oven does the rest.</p>
 
-    <div class="card border shadow">
-      <h2>Ask me anything 👋</h2>
-      <p>Change this line to say what your AI answers questions about.</p>
+      <form id="story-form">
+        <div class="grid">
+          <label class="field">
+            <span class="emoji">🦊</span> Hero — who?
+            <input id="hero" name="hero" maxlength="80" placeholder="e.g. sleepy panda" autocomplete="off">
+          </label>
+          <label class="field">
+            <span class="emoji">🍙</span> Buddy — sidekick?
+            <input id="buddy" name="buddy" maxlength="80" placeholder="e.g. talking samosa" autocomplete="off">
+          </label>
+          <label class="field">
+            <span class="emoji">🏰</span> Place — where?
+            <input id="place" name="place" maxlength="80" placeholder="e.g. floating chai shop" autocomplete="off">
+          </label>
+          <label class="field">
+            <span class="emoji">💎</span> Magic thing?
+            <input id="treasure" name="treasure" maxlength="80" placeholder="e.g. glowing jhumka" autocomplete="off">
+          </label>
+        </div>
+
+        <label class="field full">
+          <span class="emoji">🌀</span> Secret twist word
+          <input id="twist" name="twist" maxlength="80" placeholder="e.g. monsoon, giggle, time-freeze" autocomplete="off">
+        </label>
+
+        <div class="row">
+          <div class="moods">
+            <p class="mini-label">Pick a vibe:</p>
+            <div class="pills" id="moods">
+              <button type="button" data-mood="cozy" class="pill active">🥛 cozy</button>
+              <button type="button" data-mood="funny" class="pill">🤪 funny</button>
+              <button type="button" data-mood="dreamy" class="pill">🌙 dreamy</button>
+              <button type="button" data-mood="spooky-cute" class="pill">👻 spooky-cute</button>
+              <button type="button" data-mood="adventurous" class="pill">🧭 adventurous</button>
+            </div>
+          </div>
+          <label class="lang">
+            <span class="mini-label">Language</span>
+            <select id="language">
+              <option>English</option>
+              <option>Hinglish</option>
+              <option>Hindi</option>
+              <option>Tamil</option>
+              <option>Telugu</option>
+              <option>Bengali</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="surprise" class="btn ghost">🎲 Surprise me</button>
+          <button type="submit" id="make" class="btn primary">✨ Bake my story</button>
+        </div>
+        <p class="hint" id="hint">tip: try <button type="button" class="linklike" data-fill="panda">panda</button> + <button type="button" class="linklike" data-fill="place">moon metro</button> + <button type="button" class="linklike" data-fill="treasure">singing laddoo</button></p>
+      </form>
     </div>
 
-    <!-- Your agent will add the form and the answer here (Lecture 9, step 5) -->
-
+    <div class="card story-card hidden" id="story-box">
+      <div class="story-top">
+        <h2 id="story-title">Your story is rising… 🍞</h2>
+        <div class="chips" id="chips"></div>
+      </div>
+      <div id="loader" class="loader hidden"><span class="pot">🍲</span><span>stirring stardust…</span><div class="dots"><i></i><i></i><i></i></div></div>
+      <div id="story-text" class="story-text"></div>
+      <p id="story-error" class="error hidden"></p>
+      <div class="story-actions">
+        <button id="read" class="btn small">🔊 Read aloud</button>
+        <button id="copy" class="btn small">📋 Copy</button>
+        <button id="again" class="btn small ghost">↩ New words</button>
+      </div>
+      <p class="powered">made with 💛 + <a href="https://www.sarvam.ai/" target="_blank" rel="noreferrer">Sarvam AI</a></p>
+    </div>
   </main>
 
   <footer>
-    Made with <span class="heart">&hearts;</span> by me
+    Made with <span class="heart">&hearts;</span> + stardust · needs <code>SARVAM_API_KEY</code> on Vercel to bake for real
   </footer>
 
 </body>

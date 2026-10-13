@@ -1,171 +1,151 @@
-/* This file controls how everything LOOKS.
-   Change a value, save, and refresh your browser to see what happens. */
-
-
-/* Load a font from Google Fonts */
-@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,700&display=swap');
-
+/* Story Sprinkles — cute pastel theme */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;700&display=swap');
 
 :root {
-  --bg-color: #ffffff;
-  --text-color: #1a1a1a;
+  --bg: #fff7f0;
+  --ink: #3d2c3f;
+  --muted: #8a7390;
+  --pink: #ff8fb2;
+  --pink-deep: #f8618e;
+  --lav: #c9b8ff;
+  --cream: #fffdf7;
+  --mint: #bff3d6;
+  --butter: #ffe9a8;
+  --card-shadow: 8px 8px 0 rgba(61,44,63,.12);
 }
 
-/* dark mode */
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #1a1a1a;
-    --text-color: #ffffff;
-  }
-}
-
-/* Rules for the whole page */
+* { box-sizing: border-box; }
 
 body {
-  font-family: "Work Sans", sans-serif;
-  font-size: 18px;
-  line-height: 1.6;
-  background: var(--bg-color);  /* page background color — try changing this! */
-  color: var(--text-color);        /* text color */
+  font-family: "Quicksand", system-ui, sans-serif;
+  background:
+    radial-gradient(600px 300px at 10% 0%, #ffe3ee 0%, transparent 60%),
+    radial-gradient(700px 350px at 90% 10%, #e6deff 0%, transparent 60%),
+    radial-gradient(500px 400px at 50% 100%, #fff0c7 0%, transparent 60%),
+    var(--bg);
+  color: var(--ink);
   margin: 0;
+  min-height: 100vh;
 }
 
-.card{
-    color: white;
-/* Auto layout */
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 24px;
-
-position: relative;
-
-background: #1a1a1a;
-border-radius: 0px 24px 0px 24px;
-    transition: .5s;
+.clouds {
+  position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
 }
-
-.card:hover{
-
-    background: #171a1f;
-    border-radius: 24px 0px 24px 0px;
-    padding: 24px;
+.clouds span {
+  position: absolute; font-size: 28px; opacity: .7;
+  animation: float 9s ease-in-out infinite;
 }
-
-.border{
-    border: 4px solid red;
-}
-
-.shadow{
-box-shadow: 4px 4px 0px 9px rgba(0, 0, 0, 0.73); 
-}
-
-
-/* Headings */
-
-h1, h2, h3 {
-  color: #1D1F50;
-}
-
-.card h2{
-    color: white;
-}
-
-
-/* Links */
-
-a {
-  color: #FF4343;        /* the accent color */
-}
-
-
-/* The bar at the top */
+.clouds span:nth-child(1){ left:6%; top:12%; }
+.clouds span:nth-child(2){ left:82%; top:8%; animation-delay:-2s; font-size:38px; }
+.clouds span:nth-child(3){ left:12%; top:78%; animation-delay:-4s; font-size:34px; }
+.clouds span:nth-child(4){ left:88%; top:68%; animation-delay:-1s; }
+.clouds span:nth-child(5){ left:48%; top:6%; animation-delay:-6s; font-size:20px; }
+@keyframes float { 50% { transform: translateY(-14px) rotate(6deg); } }
 
 header {
-  max-width: 640px;
-  margin: auto;
-  padding: 20px;
-  font-weight: 700;
+  max-width: 720px; margin: auto; padding: 28px 20px 6px;
+  text-align: center; position: relative; z-index: 1;
 }
-
 .header-text {
-  color: #1D1F50;
-  text-decoration: none;
+  font-family: "Baloo 2", cursive;
+  font-size: 42px; font-weight: 800; letter-spacing: -.5px;
+  color: var(--ink); text-decoration: none;
+  background: linear-gradient(90deg, #ff8fb2, #9b7bff);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-
-
-/* The white box that holds your content */
+.tagline { margin: 2px 0 0; color: var(--muted); font-weight: 600; }
 
 main {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px 40px 40px 40px;
-  border-radius: 8px;
+  max-width: 720px; margin: auto; padding: 16px 20px 30px;
+  position: relative; z-index: 1;
 }
 
+.card {
+  background: var(--cream);
+  border: 3px solid var(--ink);
+  border-radius: 28px;
+  padding: 22px;
+  box-shadow: var(--card-shadow);
+}
+.cute-card h2, .story-card h2 {
+  font-family: "Baloo 2", cursive; margin: 0; font-size: 26px; line-height: 1.1;
+}
+.sub { margin: 6px 0 16px; color: var(--muted); font-weight: 500; }
 
-/* Pictures never overflow the box */
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field {
+  display: flex; flex-direction: column; gap: 6px;
+  background: #fff; border: 2px solid #f2d8e3; border-radius: 18px; padding: 10px 12px;
+  font-weight: 700; font-size: 14px;
+}
+.field.full { margin-top: 12px; }
+.field input {
+  border: 0; outline: 0; background: transparent;
+  font: inherit; font-weight: 500; font-size: 16px; color: var(--ink);
+}
+.field:focus-within { border-color: var(--pink); box-shadow: 0 0 0 4px #ffd4e2; }
+.emoji { font-size: 18px; }
 
-main img {
-  max-width: 100%;
-  border-radius: 4px;
+.row { display: flex; gap: 14px; align-items: flex-end; justify-content: space-between; margin-top: 14px; flex-wrap: wrap; }
+.mini-label { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin: 0 0 8px; }
+.pills { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill {
+  border: 2px solid var(--ink); background: #fff; border-radius: 999px;
+  padding: 6px 12px; font: inherit; font-weight: 700; font-size: 14px; cursor: pointer;
+  transition: transform .12s;
+}
+.pill:hover { transform: translateY(-1px) rotate(-1deg); }
+.pill.active { background: var(--ink); color: #fff; }
+
+.lang select {
+  font: inherit; font-weight: 700; border: 2px solid var(--ink); border-radius: 14px; padding: 8px 10px; background: #fff;
 }
 
-.image-caption {
-  font-style: italic;
-  opacity: 0.6;
+.actions { display: flex; gap: 10px; margin-top: 16px; }
+.btn {
+  font-family: "Baloo 2", cursive; font-weight: 700; font-size: 17px;
+  border: 2.5px solid var(--ink); border-radius: 18px; padding: 10px 16px; cursor: pointer;
+  transition: transform .12s;
 }
+.btn:active { transform: scale(.97); }
+.btn.primary { background: linear-gradient(180deg, #ffb1c8, var(--pink)); flex: 1; box-shadow: 4px 4px 0 var(--ink); }
+.btn.primary:hover { transform: translateY(-1px) rotate(-.5deg); }
+.btn.primary:disabled { opacity: .6; cursor: wait; }
+.btn.ghost { background: #fff; }
+.btn.small { font-size: 15px; padding: 8px 12px; background: #fff; border-radius: 14px; }
 
-.date {
-  opacity: 0.6;
+.hint { font-size: 14px; color: var(--muted); }
+.linklike { border: 0; background: #ffe9f1; border-radius: 999px; padding: 2px 8px; cursor: pointer; font: inherit; font-weight: 700; color: var(--pink-deep); }
+
+.story-card { margin-top: 16px; background: linear-gradient(180deg, #fff, #fff8e6); }
+.story-card.hidden, .hidden { display: none !important; }
+.story-top { display: flex; flex-direction: column; gap: 10px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { background: var(--lav); border: 2px solid var(--ink); border-radius: 999px; padding: 2px 10px; font-size: 13px; font-weight: 800; }
+.story-text {
+  margin-top: 12px; font-size: 18px; line-height: 1.7; white-space: pre-wrap;
+  background: #fff; border: 2px dashed #e8c9d8; border-radius: 18px; padding: 16px;
+  min-height: 80px;
 }
+.story-text::first-line { font-weight: 700; }
+.loader { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--pink-deep); margin-top: 12px; }
+.pot { font-size: 28px; animation: wiggle 1s infinite; display: inline-block; }
+@keyframes wiggle { 25% { transform: rotate(-12deg); } 75% { transform: rotate(12deg); } }
+.dots { display: inline-flex; gap: 4px; }
+.dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--pink-deep); animation: blink 1s infinite; }
+.dots i:nth-child(2){ animation-delay:.15s } .dots i:nth-child(3){ animation-delay:.3s }
+@keyframes blink { 50% { opacity: .2; } }
 
+.error { background: #ffe1e1; border: 2px solid #ff6b6b; padding: 10px 12px; border-radius: 14px; font-weight: 600; }
+.story-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.powered { font-size: 13px; color: var(--muted); text-align: center; }
 
-/* Quotes */
+footer { max-width: 720px; margin: auto; padding: 10px 20px 30px; text-align: center; font-size: 14px; color: var(--muted); }
+.heart { color: var(--pink-deep); animation: beat 1s infinite; }
+@keyframes beat { 50% { opacity: .5; } }
 
-blockquote {
-  border-left: 4px solid #FF4343;
-  margin-left: 0;
-  padding-left: 16px;
-  font-size: 120%;
-}
-
-
-/* The footer at the bottom */
-
-footer {
-  max-width: 640px;
-  margin: auto;
-  padding: 20px;
-  text-align: center;
-  font-size: 80%;
-}
-
-
-/* The beating heart */
-
-.heart {
-  color: #FF4343;
-  animation: beat 1s infinite;
-}
-
-@keyframes beat {
-  50% { opacity: 0.5; }
-}
-
-
-/* Anything below this only applies to small screens (phones) */
-
-@media only screen and (max-width: 600px) {
-
-  body {
-    background: #ffffff;
-  }
-
-  main {
-    padding: 10px 5% 40px 5%;
-    border-radius: 0;
-  }
-
+@media (max-width: 600px) {
+  .grid { grid-template-columns: 1fr; }
+  .header-text { font-size: 34px; }
+  .actions { flex-direction: column; }
 }
