@@ -80,11 +80,11 @@ async function bake() {
     typewriter(cleanStory(data.story));
     titleEl.textContent = "Your story is served! 🍰";
   } catch (err) {
-    // Cute offline fallback so the site still feels magical without a key / on file://
+    // Cute offline fallback so the site still feels magical. Never show server details to visitors.
     console.warn("API failed, using local sprinkle:", err);
     titleEl.textContent = "A pocket story (offline sprinkle) 🌙";
     typewriter(localStory(payload));
-    showError(`psst: live Sarvam magic needs a key — ${err.message} (showing a homemade tale for now)`);
+    showError("Our story oven hiccuped, so here's a homemade tale — try baking again in a moment! 🍞");
   } finally {
     setLoading(false);
   }

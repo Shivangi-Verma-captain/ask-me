@@ -22,8 +22,9 @@ export default async function handler(req, res) {
 
     const apiKey = process.env.SARVAM_API_KEY;
     if (!apiKey || apiKey === "paste-your-key-here") {
+      console.error("Missing SARVAM_API_KEY (server env not set).");
       return res.status(500).json({
-        error: "Missing SARVAM_API_KEY on the server. Add it in .env (local) or Vercel → Settings → Environment Variables."
+        error: "Our story oven is still warming up. Try again in a moment!"
       });
     }
 
@@ -71,12 +72,12 @@ Rules:
     if (!sarvamRes.ok) {
       console.error("Sarvam error", sarvamRes.status, data);
       return res.status(502).json({
-        error: data?.error?.message || `Sarvam said ${sarvamRes.status}. Try again in a moment!`,
+        error: "Our story oven hiccuped. Try again in a moment!",
       });
     }
 
     const text = data?.choices?.[0]?.message?.content?.trim();
-    if (!text) return res.status(502).json({ error: "Sarvam returned an empty story. Try again!" });
+    if (!text) return res.status(502).json({ error: "Our story oven hiccuped. Try again in a moment!" });
 
     return res.status(200).json({ story: text });
   } catch (err) {
