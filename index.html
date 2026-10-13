@@ -3,61 +3,62 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Story Sprinkles ✨ — tiny tales from tiny words</title>
+  <title>DOUBLE TROUBLE — dark comedy story machine</title>
   <link rel="stylesheet" href="style.css">
   <script src="scripts.js" defer></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="favicon.ico">
-  <meta name="description" content="Put words in cute boxes, get a short immersive story powered by Sarvam AI.">
+  <meta name="description" content="Drop words in boxes, get a savage dark-comedy story with double meaning. Powered by Sarvam AI.">
 </head>
 
 <body>
-  <div class="clouds" aria-hidden="true"><span>☁️</span><span>☁️</span><span>☁️</span><span>✨</span><span>⭐</span></div>
+  <div class="ticker" aria-hidden="true"><span>NO FAIRYTALES • NO MORAL SCIENCE • ONLY BAD DECISIONS • NO FAIRYTALES • NO MORAL SCIENCE • ONLY BAD DECISIONS •&nbsp;</span><span>NO FAIRYTALES • NO MORAL SCIENCE • ONLY BAD DECISIONS • NO FAIRYTALES • NO MORAL SCIENCE • ONLY BAD DECISIONS •&nbsp;</span></div>
 
   <header>
-    <a href="index.html" class="header-text">🧸 Story Sprinkles</a>
-    <p class="tagline">put in silly words → get a tiny immersive world</p>
+    <div class="kicker"><span class="dot"></span> SARVAM-POWERED / 18-ISH VIBE / ROAST INCLUDED</div>
+    <a href="index.html" class="header-text">DOUBLE<br>TROUBLE<span class="accent">.</span></a>
+    <p class="tagline">Put dirty-minded words in. Get a darker, funnier story out.</p>
   </header>
 
   <main>
-    <div class="card cute-card">
-      <h2>Make a story in 10 seconds ✨</h2>
-      <p class="sub">Fill 1 box or all 5. Our Sarvam-powered story oven does the rest.</p>
+    <div class="card">
+      <h2>Build your bad decision.</h2>
+      <p class="sub">Fill one box or all five. We’ll make it savage.</p>
 
       <form id="story-form">
         <div class="grid">
           <label class="field">
-            <span class="emoji">🦊</span> Hero — who?
-            <input id="hero" name="hero" maxlength="80" placeholder="e.g. sleepy panda" autocomplete="off">
+            <span class="label">01 / Main character</span>
+            <input id="hero" name="hero" maxlength="80" placeholder="e.g. broke landlord" autocomplete="off">
           </label>
           <label class="field">
-            <span class="emoji">🍙</span> Buddy — sidekick?
-            <input id="buddy" name="buddy" maxlength="80" placeholder="e.g. talking samosa" autocomplete="off">
+            <span class="label">02 / Partner in crime</span>
+            <input id="buddy" name="buddy" maxlength="80" placeholder="e.g. ex with attitude" autocomplete="off">
           </label>
           <label class="field">
-            <span class="emoji">🏰</span> Place — where?
-            <input id="place" name="place" maxlength="80" placeholder="e.g. floating chai shop" autocomplete="off">
+            <span class="label">03 / Location</span>
+            <input id="place" name="place" maxlength="80" placeholder="e.g. 2BHK in Andheri" autocomplete="off">
           </label>
           <label class="field">
-            <span class="emoji">💎</span> Magic thing?
-            <input id="treasure" name="treasure" maxlength="80" placeholder="e.g. glowing jhumka" autocomplete="off">
+            <span class="label">04 / Cursed object</span>
+            <input id="treasure" name="treasure" maxlength="80" placeholder="e.g. neighbour’s pressure cooker" autocomplete="off">
           </label>
         </div>
 
         <label class="field full">
-          <span class="emoji">🌀</span> Secret twist word
-          <input id="twist" name="twist" maxlength="80" placeholder="e.g. monsoon, giggle, time-freeze" autocomplete="off">
+          <span class="label">05 / Twist word — make it spicy</span>
+          <input id="twist" name="twist" maxlength="80" placeholder="e.g. rent, stamina, package, late night" autocomplete="off">
         </label>
 
         <div class="row">
           <div class="moods">
-            <p class="mini-label">Pick a vibe:</p>
+            <p class="mini-label">Pick your poison</p>
             <div class="pills" id="moods">
-              <button type="button" data-mood="cozy" class="pill active">🥛 cozy</button>
-              <button type="button" data-mood="funny" class="pill">🤪 funny</button>
-              <button type="button" data-mood="dreamy" class="pill">🌙 dreamy</button>
-              <button type="button" data-mood="spooky-cute" class="pill">👻 spooky-cute</button>
-              <button type="button" data-mood="adventurous" class="pill">🧭 adventurous</button>
+              <button type="button" data-mood="savage" class="pill active">SAVAGE</button>
+              <button type="button" data-mood="dark" class="pill">DARK</button>
+              <button type="button" data-mood="shameless" class="pill">SHAMELESS</button>
+              <button type="button" data-mood="chaotic" class="pill">CHAOTIC</button>
+              <button type="button" data-mood="filthy-clever" class="pill">FILTHY-CLEVER</button>
             </div>
           </div>
           <label class="lang">
@@ -74,32 +75,32 @@
         </div>
 
         <div class="actions">
-          <button type="button" id="surprise" class="btn ghost">🎲 Surprise me</button>
-          <button type="submit" id="make" class="btn primary">✨ Bake my story</button>
+          <button type="button" id="surprise" class="btn ghost">SURPRISE ME</button>
+          <button type="submit" id="make" class="btn primary">DROP THE STORY ↓</button>
         </div>
-        <p class="hint" id="hint">tip: try <button type="button" class="linklike" data-fill="panda">panda</button> + <button type="button" class="linklike" data-fill="place">moon metro</button> + <button type="button" class="linklike" data-fill="treasure">singing laddoo</button></p>
+        <p class="hint" id="hint">try: <button type="button" class="linklike" data-fill="a">landlord</button> + <button type="button" class="linklike" data-fill="b">shaadi ka buffet</button> + <button type="button" class="linklike" data-fill="c">5AM local train</button></p>
       </form>
     </div>
 
     <div class="card story-card hidden" id="story-box">
       <div class="story-top">
-        <h2 id="story-title">Your story is rising… 🍞</h2>
+        <h2 id="story-title">Cooking…</h2>
         <div class="chips" id="chips"></div>
       </div>
-      <div id="loader" class="loader hidden"><span class="pot">🍲</span><span>stirring stardust…</span><div class="dots"><i></i><i></i><i></i></div></div>
+      <div id="loader" class="loader hidden"><span class="bar"></span>roasting your characters…</div>
       <div id="story-text" class="story-text"></div>
       <p id="story-error" class="error hidden"></p>
       <div class="story-actions">
-        <button id="read" class="btn small">🔊 Read aloud</button>
-        <button id="copy" class="btn small">📋 Copy</button>
-        <button id="again" class="btn small ghost">↩ New words</button>
+        <button id="read" class="btn small">READ ALOUD</button>
+        <button id="copy" class="btn small">COPY</button>
+        <button id="again" class="btn small ghost">RESET ↑</button>
       </div>
-      <p class="powered">made with 💛 + <a href="https://www.sarvam.ai/" target="_blank" rel="noreferrer">Sarvam AI</a></p>
+      <p class="powered">18-ISH HUMOUR • KEEP IT CONSENSUAL • POWERED BY <a href="https://www.sarvam.ai/" target="_blank" rel="noreferrer">SARVAM AI</a></p>
     </div>
   </main>
 
   <footer>
-    Made with <span class="heart">&hearts;</span> + stardust
+    DOUBLE TROUBLE — no fairytales were harmed. Your key stays on the server.
   </footer>
 
 </body>

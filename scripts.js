@@ -1,4 +1,4 @@
-// Story Sprinkles frontend — sends words to /api/story (Sarvam) with cute fallback
+// DOUBLE TROUBLE frontend — sends words to /api/story (Sarvam), edgy fallback
 const form = document.getElementById("story-form");
 const makeBtn = document.getElementById("make");
 const box = document.getElementById("story-box");
@@ -8,7 +8,7 @@ const errEl = document.getElementById("story-error");
 const loader = document.getElementById("loader");
 const chipsEl = document.getElementById("chips");
 
-let mood = "cozy";
+let mood = "savage";
 document.getElementById("moods").addEventListener("click", (e) => {
   const b = e.target.closest(".pill");
   if (!b) return;
@@ -18,10 +18,10 @@ document.getElementById("moods").addEventListener("click", (e) => {
 });
 
 const surpriseSets = [
-  ["sleepy panda", "talking samosa", "floating chai shop", "glowing jhumka", "monsoon giggle"],
-  ["brave squirrel", "robot nani", "moon metro", "singing laddoo", "time-freeze"],
-  ["shy dragon", "cloud auto-driver", "library of smells", "invisible umbrella", "midnight post"],
-  ["curious otter", "dj peacock", "underwater mela", "memory marbles", "first rain"],
+  ["broke landlord", "ex with attitude", "2BHK in Andheri", "neighbour's pressure cooker", "rent"],
+  ["gym trainer", "shaadi ka photographer", "5AM local train", "lost wallet", "stamina"],
+  ["startup founder", "nosy aunty", "office pantry", "performance review", "package"],
+  ["delivery guy", "late-night RJ", "rooftop party", "cheap whiskey", "long night"],
 ];
 
 document.getElementById("surprise").addEventListener("click", () => {
@@ -37,9 +37,9 @@ document.getElementById("surprise").addEventListener("click", () => {
 document.querySelectorAll("[data-fill]").forEach((b) =>
   b.addEventListener("click", () => {
     const v = b.dataset.fill;
-    if (v === "panda") document.getElementById("hero").value = "sleepy panda";
-    if (v === "place") document.getElementById("place").value = "moon metro";
-    if (v === "treasure") document.getElementById("treasure").value = "singing laddoo";
+    if (v === "a") document.getElementById("hero").value = "broke landlord";
+    if (v === "b") document.getElementById("place").value = "shaadi ka buffet";
+    if (v === "c") document.getElementById("place").value = "5AM local train";
   })
 );
 
@@ -60,7 +60,7 @@ async function bake() {
   };
 
   if (!payload.hero && !payload.buddy && !payload.place && !payload.treasure && !payload.twist) {
-    showError("Sprinkle at least one word in a box first! Even a tiny one. 🐭");
+    showError("Drop at least one word first. Don't be shy.");
     return;
   }
 
@@ -78,13 +78,13 @@ async function bake() {
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw new Error(data.error || `Server said ${res.status}`);
     typewriter(cleanStory(data.story));
-    titleEl.textContent = "Your story is served! 🍰";
+    titleEl.textContent = "Fresh damage delivered.";
   } catch (err) {
-    // Cute offline fallback so the site still feels magical. Never show server details to visitors.
-    console.warn("API failed, using local sprinkle:", err);
-    titleEl.textContent = "A pocket story (offline sprinkle) 🌙";
+    // Never show server details to visitors.
+    console.warn("API failed, using local fallback:", err);
+    titleEl.textContent = "Offline roast (server busy)";
     typewriter(localStory(payload));
-    showError("Our story oven hiccuped, so here's a homemade tale — try baking again in a moment! 🍞");
+    showError("Server took a smoke break — here's a house special. Try again in a bit.");
   } finally {
     setLoading(false);
   }
@@ -97,7 +97,7 @@ function val(id) {
 function setLoading(on) {
   loader.classList.toggle("hidden", !on);
   makeBtn.disabled = on;
-  makeBtn.textContent = on ? "✨ Baking…" : "✨ Bake my story";
+  makeBtn.textContent = on ? "COOKING…" : "DROP THE STORY ↓";
   if (on) {
     errEl.classList.add("hidden");
     textEl.textContent = "";
@@ -111,12 +111,12 @@ function showError(msg) {
 }
 
 function renderChips(p) {
-  const items = [p.hero && `🦊 ${p.hero}`, p.buddy && `🍙 ${p.buddy}`, p.place && `🏰 ${p.place}`, p.treasure && `💎 ${p.treasure}`, `💫 ${p.mood}`, p.twist && `🌀 ${p.twist}`].filter(Boolean);
-  chipsEl.innerHTML = items.map((c) => `<span class="chip">${escapeHtml(c)}</span>`).join("");
+  const items = [p.hero, p.buddy, p.place, p.treasure, p.mood, p.twist].filter(Boolean);
+  chipsEl.innerHTML = items.map((c) => `<span class="chip">${escapeHtml(c.toUpperCase())}</span>`).join("");
 }
 
 function cleanStory(s) {
-  return String(s || "").replace(/^Title:\s*/i, "🌟 ").trim();
+  return String(s || "").replace(/^Title:\s*/i, "").trim();
 }
 
 let typeTimer;
@@ -124,21 +124,20 @@ function typewriter(full) {
   clearInterval(typeTimer);
   errEl.classList.add("hidden");
   let i = 0;
-  // fast + cute: reveal in chunks so long stories don't take forever
   typeTimer = setInterval(() => {
-    i += 6;
+    i += 8;
     textEl.textContent = full.slice(0, i);
     if (i >= full.length) clearInterval(typeTimer);
-  }, 18);
+  }, 14);
 }
 
 function localStory(p) {
-  const hero = p.hero || "a sleepy panda";
-  const buddy = p.buddy || "a talking samosa";
-  const place = p.place || "a floating chai shop";
-  const treasure = p.treasure || "a glowing jhumka";
-  const twist = p.twist || "a monsoon giggle";
-  return `🌟 The ${twist} at ${place}\n\nYou push open a creaky cardamom-smelling door and ${hero} looks up, eyes full of crumbs and hope. Beside them, ${buddy} crackles, “You came! The ${treasure} only glows when someone ${p.mood} believes.”\n\nYou hear tiny bells in the steam. You touch the ${treasure} — warm as toast — and the whole ${place} tilts toward adventure. Together you chase the ${twist} through cinnamon clouds, laughing so hard the stars wobble.\n\nIn the end, the ${treasure} wasn’t magic. Your kindness was. And you carry its glow home in your pocket. ✨`;
+  const hero = p.hero || "broke landlord";
+  const buddy = p.buddy || "ex with attitude";
+  const place = p.place || "2BHK in Andheri";
+  const treasure = p.treasure || "neighbour's pressure cooker";
+  const twist = p.twist || "rent";
+  return `The ${twist} always comes twice.\n\n${hero} swore this month would be different. Then ${buddy} showed up at ${place} with the ${treasure} and said, "I heard your ${twist} is too big to handle alone." Everyone laughed. ${hero} did not.\n\nYou can smell cheap deo and bad decisions. You hear the cooker whistle like it's judging you. Life lesson number 404: the longer you ignore your ${twist}, the harder it gets. In the end ${hero} paid double — once in cash, once in dignity.\n\nMoral: size of the ${twist} doesn't matter. Timing does.`;
 }
 
 function escapeHtml(s) {
@@ -148,15 +147,15 @@ function escapeHtml(s) {
 document.getElementById("copy").addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(textEl.textContent);
-    document.getElementById("copy").textContent = "✅ Copied!";
-    setTimeout(() => (document.getElementById("copy").textContent = "📋 Copy"), 1500);
-  } catch { showError("Copy didn’t work in this browser — just select + copy!"); }
+    document.getElementById("copy").textContent = "COPIED";
+    setTimeout(() => (document.getElementById("copy").textContent = "COPY"), 1500);
+  } catch { showError("Copy blocked — select + copy manually."); }
 });
 
 document.getElementById("read").addEventListener("click", () => {
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(textEl.textContent.slice(0, 800));
-  u.rate = 0.95; u.pitch = 1.1;
+  u.rate = 0.95; u.pitch = 0.9;
   speechSynthesis.speak(u);
 });
 

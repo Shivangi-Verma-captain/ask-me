@@ -1,10 +1,9 @@
 export default async function handler(req, res) {
-  // CORS for local preview
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST") return res.status(405).json({ error: "Use POST to make a story." });
+  if (req.method !== "POST") return res.status(405).json({ error: "Use POST." });
 
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body || "{}") : (req.body || {});
@@ -12,43 +11,42 @@ export default async function handler(req, res) {
     const buddy = String(body.buddy || "").trim().slice(0, 80);
     const place = String(body.place || "").trim().slice(0, 80);
     const treasure = String(body.treasure || "").trim().slice(0, 80);
-    const mood = String(body.mood || "cozy").trim().slice(0, 40);
+    const mood = String(body.mood || "savage").trim().slice(0, 40);
     const twist = String(body.twist || "").trim().slice(0, 80);
     const language = String(body.language || "English").trim().slice(0, 40);
 
     if (!hero && !place && !treasure && !twist && !buddy) {
-      return res.status(400).json({ error: "Add at least one word to start the magic!" });
+      return res.status(400).json({ error: "Drop at least one word first." });
     }
 
     const apiKey = process.env.SARVAM_API_KEY;
     if (!apiKey || apiKey === "paste-your-key-here") {
       console.error("Missing SARVAM_API_KEY (server env not set).");
-      return res.status(500).json({
-        error: "Our story oven is still warming up. Try again in a moment!"
-      });
+      return res.status(500).json({ error: "Server warming up. Try again." });
     }
 
     const words = [
-      hero && `Hero: ${hero}`,
-      buddy && `Buddy: ${buddy}`,
-      place && `Place: ${place}`,
-      treasure && `Magical object: ${treasure}`,
-      `Mood: ${mood}`,
-      twist && `Secret twist word: ${twist}`,
+      hero && `Main character: ${hero}`,
+      buddy && `Partner in crime: ${buddy}`,
+      place && `Location: ${place}`,
+      treasure && `Cursed object: ${treasure}`,
+      `Vibe: ${mood}`,
+      twist && `Twist word: ${twist}`,
     ].filter(Boolean).join("\n");
 
-    const prompt = `Write a short immersive story (140-220 words, 3 tiny paragraphs).
-Use ALL of these ideas naturally:
+    const prompt = `Write a short dark-comedy story (150-220 words, 3 paragraphs) full of fun, sarcasm and clever double-meaning wordplay.
+Use ALL of these:
 ${words}
 
 Rules:
-- Language: ${language}. If Hinglish, mix Hindi + English playfully.
-- Second person touches ("you can smell...", "you hear...") so it feels immersive.
-- Vivid senses: 1 smell, 1 sound, 1 texture.
-- The magical object must matter to the ending.
-- End with one warm sparkly line + an emoji.
-- Give it a cute 4-6 word title on the first line as "Title: ...".
-- No scary gore, kid-friendly, cozy.`;
+- Language: ${language}. If Hinglish, mix Hindi + English like a late-night standup set.
+- Tone: savage, witty, roasty, adult-ish. Punchlines, reality checks, "that's what she said" style misdirection.
+- Double meaning = clever, not crude. Flirty wordplay allowed, but NO pornographic detail, NO graphic sex, NO minors (all characters 25+ adults), NO incest, NO non-consensual stuff.
+- Dark = sarcastic about rent, jobs, exes, adulting, hangovers — NOT gore, NOT self-harm, NOT hate, NO slurs.
+- Second-person jabs ("you know that feeling when...").
+- The cursed object must cause the climax.
+- First line = punchy title (4-7 words), no "Title:" prefix.
+- End with a brutal one-line moral.`;
 
     const sarvamRes = await fetch("https://api.sarvam.ai/v1/chat/completions", {
       method: "POST",
@@ -58,10 +56,10 @@ Rules:
       },
       body: JSON.stringify({
         model: "sarvam-105b",
-        temperature: 0.85,
-        max_tokens: 600,
+        temperature: 0.9,
+        max_tokens: 650,
         messages: [
-          { role: "system", content: "You are Story Sprinkles, a cute playful storyteller who writes tiny immersive fairytales full of sensory sparkle." },
+          { role: "system", content: "You are DOUBLE TROUBLE, a savage Indian standup-comic storyteller. Dark, funny, full of clever double-meaning. Adults only, consensual, never explicit, never hateful." },
           { role: "user", content: prompt },
         ],
       }),
@@ -71,17 +69,15 @@ Rules:
 
     if (!sarvamRes.ok) {
       console.error("Sarvam error", sarvamRes.status, data);
-      return res.status(502).json({
-        error: "Our story oven hiccuped. Try again in a moment!",
-      });
+      return res.status(502).json({ error: "Server hiccup. Try again." });
     }
 
     const text = data?.choices?.[0]?.message?.content?.trim();
-    if (!text) return res.status(502).json({ error: "Our story oven hiccuped. Try again in a moment!" });
+    if (!text) return res.status(502).json({ error: "Server hiccup. Try again." });
 
     return res.status(200).json({ story: text });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "Oops! Our story oven hiccuped. Try again!" });
+    return res.status(500).json({ error: "Server hiccup. Try again." });
   }
 }
