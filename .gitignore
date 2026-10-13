@@ -1,0 +1,9 @@
+# Your real keys. Never commit this.
+.env
+.env.local
+
+# Made by the Vercel CLI
+.vercel
+
+# Made by your Mac
+.DS_Store
